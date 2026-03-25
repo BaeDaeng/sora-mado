@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import { mapWeatherData } from '../utils/weatherMapper';
 import { getTimeState } from '../utils/timeMapper';
 
-const API_KEY = import.meta.env.VITE_WEATHER_API_KEY || '';
+// ✨ .env 파일에 공백이 섞여 들어와도 자동으로 제거(.trim())하도록 수정했습니다!
+const API_KEY = (import.meta.env.VITE_WEATHER_API_KEY || '').trim();
 
 export const useWeatherAPI = () => {
   const [weatherData, setWeatherData] = useState({
     temp: '--',
-    city: '날씨 불러오는 중...', // 초기값을 바꿔두었습니다.
+    city: '날씨 불러오는 중...',
     description: '',
     timeState: getTimeState(),
     weatherCondition: 'Clear',
@@ -18,7 +19,6 @@ export const useWeatherAPI = () => {
   useEffect(() => {
     const fetchWeather = async (lat, lon) => {
       if (!API_KEY) {
-        // 1. API 키가 아예 없을 때
         setWeatherData(prev => ({ ...prev, city: 'API 키가 없습니다 (설정 확인)' }));
         setIsLoading(false);
         return;
@@ -28,8 +28,8 @@ export const useWeatherAPI = () => {
         const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=kr`);
         
         if (!res.ok) {
-          // 2. API 키는 있는데 아직 활성화가 안 되었거나 틀렸을 때
-          throw new Error(`API 요청 실패 (코드: ${res.status}). 키 활성화를 기다려주세요.`);
+          const errorData = await res.json();
+          throw new Error(`API 요청 실패 (코드: ${res.status}, 메시지: ${errorData.message})`);
         }
 
         const data = await res.json();
@@ -38,7 +38,7 @@ export const useWeatherAPI = () => {
 
         setWeatherData({
           temp: Math.round(data.main.temp),
-          city: data.name, // 성공하면 진짜 도시 이름(예: Seoul, Busan)이 들어갑니다.
+          city: data.name,
           description: data.weather[0].description,
           timeState: timeState,
           weatherCondition: condition,
@@ -52,13 +52,25 @@ export const useWeatherAPI = () => {
       }
     };
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => fetchWeather(position.coords.latitude, position.coords.longitude),
-      (error) => {
-        console.warn('위치 권한 거부됨. 서울 날씨를 가져옵니다.', error);
-        fetchWeather(37.5665, 126.9780); // 서울 좌표
-      }
-    );
+    // 위치를 가져오고 날씨를 세팅하는 함수 (재사용을 위해 분리)
+    const updateWeather = () => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => fetchWeather(position.coords.latitude, position.coords.longitude),
+        (error) => {
+          console.warn('위치 권한 거부됨. 서울 날씨를 가져옵니다.', error);
+          fetchWeather(37.5665, 126.9780); // 서울 좌표
+        }
+      );
+    };
+
+    // 1. 처음 화면이 켜질 때 즉시 날씨 업데이트
+    updateWeather();
+
+    // 2. ✨ 5분(5 * 60 * 1000 밀리초)마다 주기적으로 날씨 업데이트
+    const intervalId = setInterval(updateWeather, 5 * 60 * 1000);
+
+    // 3. 컴포넌트가 꺼질 때 타이머가 계속 돌아가지 않도록 정리(Cleanup)
+    return () => clearInterval(intervalId);
   }, []);
 
   return { weatherData, isLoading };
