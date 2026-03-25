@@ -1,0 +1,38 @@
+.flowerContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 벚꽃잎: 분홍색 타원형 */
+.petal {
+  position: absolute;
+  top: -10%;
+  width: 8px;
+  height: 12px;
+  background-color: #ffb7c5; /* 벚꽃 핑크색 */
+  border-radius: 50% 0 50% 0; /* 벚꽃잎 모양 */
+  opacity: 0.7;
+  animation: fallPetal linear infinite;
+}
+
+/* 빛망울 (Bokeh): 동그랗고 은은하게 */
+.bokeh {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  animation: pulseBokeh ease-in-out infinite;
+}
+
+@keyframes fallPetal {
+  0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  100% { transform: translateY(120vh) rotate(360deg) translateX(50px); opacity: 0; }
+}
+
+@keyframes pulseBokeh {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 0.6; transform: scale(1.5); }
+  100% { opacity: 0; transform: scale(0.5); }
+}

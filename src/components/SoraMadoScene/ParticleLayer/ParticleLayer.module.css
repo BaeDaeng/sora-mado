@@ -1,0 +1,17 @@
+/* src/components/SoraMadoScene/ParticleLayer/ParticleLayer.module.css */
+
+.windowMask {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 2;
+  pointer-events: none; 
+
+  /* 👇 여기 수치를 조절합니다 */
+  clip-path: polygon(
+    31% 14%,  /* 1. 왼쪽 위 (가로 25%, 세로 15%) */
+    72% 14%,  /* 2. 오른쪽 위 (가로 75%, 세로 15%) */
+    72% 64%,  /* 3. 오른쪽 아래 (가로 75%, 세로 70%) */
+    31% 64%   /* 4. 왼쪽 아래 (가로 25%, 세로 70%) */
+  );
+}

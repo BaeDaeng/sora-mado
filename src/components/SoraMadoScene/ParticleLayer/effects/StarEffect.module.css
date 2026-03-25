@@ -1,0 +1,40 @@
+.starContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 반짝이는 별 */
+.twinkleStar {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+  animation: twinkle ease-in-out infinite;
+}
+
+/* 유성 (별똥별) */
+.meteor {
+  position: absolute;
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+  /* 45도 각도로 기울임 */
+  transform: rotate(45deg); 
+  animation: fallMeteor linear infinite;
+  opacity: 0;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(0.5); }
+}
+
+@keyframes fallMeteor {
+  0% { transform: rotate(45deg) translateY(-100px); opacity: 0; }
+  10% { opacity: 1; }
+  20% { opacity: 0; } /* 유성은 순식간에 사라짐 */
+  100% { transform: rotate(45deg) translateY(150vh); opacity: 0; }
+}

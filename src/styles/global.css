@@ -1,0 +1,20 @@
+/* 1. 폰트 불러오기 (ttf 적용) */
+@font-face {
+  font-family: 'SoraMadoFont'; 
+  src: url('../assets/fonts/Griun_PolFairness-Rg.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 2. 전체 적용 및 텍스트 렌더링 최적화 */
+body {
+  font-family: 'SoraMadoFont', sans-serif;
+  color: #ffffff; 
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

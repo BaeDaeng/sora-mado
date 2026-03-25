@@ -1,0 +1,23 @@
+/* src/components/SoraMadoScene/ParticleLayer/effects/RainEffect.module.css */
+
+.rainContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.drop {
+  position: absolute;
+  top: -20px;
+  width: 2px;
+  height: 30px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.8));
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh); /* 화면 맨 아래까지 떨어짐 */
+  }
+}
