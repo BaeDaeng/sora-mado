@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import styles from './SnowEffect.module.css';
 
-const generateSnow = () => {
-  return new Array(50).fill(0).map(() => ({
-    left: Math.random() * 100,
-    size: 2 + Math.random() * 4, // 2px ~ 6px 눈송이 크기
-    duration: 3 + Math.random() * 5, // 비보다 천천히 떨어짐 (3~8초)
-    delay: Math.random() * 5,
-  }));
-};
+const SnowEffect = ({ intensity = 0.5 }) => {
+  
+  // ✨ 강도에 따라 눈송이 개수 조절 (최소 20개 ~ 최대 120개)
+  const snowCount = Math.floor(20 + intensity * 100);
 
-const SnowEffect = () => {
-  const [snowflakes] = useState(generateSnow);
+  const [snowflakes] = useState(() => {
+    return new Array(snowCount).fill(0).map(() => ({
+      left: Math.random() * 100,
+      size: 1 + Math.random() * 4, 
+      duration: 3 + Math.random() * 5, 
+      delay: Math.random() * 5,
+    }));
+  });
 
   return (
     <div className={styles.snowContainer}>

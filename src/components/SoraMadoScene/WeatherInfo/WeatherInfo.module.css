@@ -1,0 +1,47 @@
+.infoContainer {
+  position: absolute;
+  bottom: 60px; /* 위치도 조금 더 띄웠습니다 */
+  left: 60px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 40px; /* 모서리도 더 둥글게 (20px -> 40px) */
+  padding: 50px 75px; /* 여백 2.5배 (20px 30px -> 50px 75px) */
+  color: white;
+  z-index: 10;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* 내부 간격 확대 */
+  
+  animation: fadeIn 1.5s ease-out;
+}
+
+.temperature {
+  font-size: 8.5rem; /* 2.5배 확대 (3.5rem -> 8.5rem) */
+  margin: 0;
+  font-weight: bold;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1; /* 숫자가 너무 큰 공간을 차지하지 않도록 조절 */
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 3rem; /* 2.5배 확대 (1.2rem -> 3rem) */
+  opacity: 0.9;
+  margin-top: 10px;
+}
+
+.description {
+  font-size: 2.5rem; /* 2.5배 확대 (1rem -> 2.5rem) */
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
