@@ -1,47 +1,49 @@
+/* src/components/SoraMadoScene/WeatherInfo/WeatherInfo.module.css */
+
 .infoContainer {
   position: absolute;
-  bottom: 60px; /* 위치도 조금 더 띄웠습니다 */
-  left: 60px;
+  bottom: 40px; /* 화면 끝에서 띄우는 간격 조절 */
+  left: 40px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 40px; /* 모서리도 더 둥글게 (20px -> 40px) */
-  padding: 50px 75px; /* 여백 2.5배 (20px 30px -> 50px 75px) */
+  border-radius: 20px; /* 40px -> 20px로 줄임 */
+  padding: 25px 40px; /* 50px 75px -> 25px 40px로 여백 반토막 */
   color: white;
   z-index: 10;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* 그림자도 살짝 은은하게 */
   display: flex;
   flex-direction: column;
-  gap: 15px; /* 내부 간격 확대 */
+  gap: 8px; /* 내부 요소들 간격도 줄임 */
   
   animation: fadeIn 1.5s ease-out;
 }
 
 .temperature {
-  font-size: 8.5rem; /* 2.5배 확대 (3.5rem -> 8.5rem) */
+  font-size: 4.5rem; /* 8.5rem -> 4.5rem으로 축소 */
   margin: 0;
   font-weight: bold;
-  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
-  line-height: 1; /* 숫자가 너무 큰 공간을 차지하지 않도록 조절 */
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  line-height: 1;
 }
 
 .details {
   display: flex;
   align-items: center;
-  gap: 15px;
-  font-size: 3rem; /* 2.5배 확대 (1.2rem -> 3rem) */
+  gap: 10px;
+  font-size: 1.5rem; /* 3rem -> 1.5rem으로 축소 */
   opacity: 0.9;
-  margin-top: 10px;
-}
-
-.description {
-  font-size: 2.5rem; /* 2.5배 확대 (1rem -> 2.5rem) */
-  opacity: 0.8;
   margin-top: 5px;
 }
 
+.description {
+  font-size: 1.2rem; /* 2.5rem -> 1.2rem으로 축소 */
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
